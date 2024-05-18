@@ -20,7 +20,7 @@ Tile::~Tile()
 
 }
 template<>
-void Tile::ISerialize<Tile>::SaveToFile(Tile &object, std::ofstream &file)
+void ISerialize<Tile>::SaveToFile(Tile &object, std::ofstream &file)
 {
    file.write((char*) &object.position.X, sizeof(uint32_t));
    file.write((char*) &object.position.Y, sizeof(uint32_t));
@@ -60,7 +60,7 @@ Map::~Map()
 
 // }
 template<>
-void Map::ISerialize<Map>::SaveToFile(Map &object, std::ofstream &file)
+void ISerialize<Map>::SaveToFile(Map &object, std::ofstream &file)
 {
    // Map Header
    uint32_t mapSize = GetSize(object.size);

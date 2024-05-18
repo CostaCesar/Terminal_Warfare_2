@@ -1,8 +1,7 @@
 #include "Map.hpp"
+#include "Unit.hpp"
 
-using Game::Map;
-using Game::Vec2;
-using Game::ISerialize;
+using namespace Game;
 
 int main(int argc, char const *argv[])
 {
