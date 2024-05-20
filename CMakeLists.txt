@@ -10,3 +10,6 @@ FILE(GLOB_RECURSE source src/*.cpp)
 # Sources
 add_executable(TerminalWarfare
 ${source})
+
+target_include_directories(TerminalWarfare PRIVATE src/Classes)
+target_include_directories(TerminalWarfare PRIVATE src/Interfaces)

@@ -1,5 +1,5 @@
-#include "Map.hpp"
-#include "Unit.hpp"
+#include "Classes/Map.hpp"
+#include "Classes/Unit.hpp"
 
 using namespace Game;
 
