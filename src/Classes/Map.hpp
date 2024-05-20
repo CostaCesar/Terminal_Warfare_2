@@ -14,7 +14,10 @@ namespace Game
    {
    private:
       const Vec2 position;
-      // TODO: Tile proeprteis (vegetation, terrain, etc)
+
+      // Serialized (Go to file) vars
+      // TODO: Tile propreties (vegetation, terrain, etc)
+      uint8_t fortification;
 
    public:
       // Constructors
@@ -23,7 +26,7 @@ namespace Game
       ~Tile();
       Tile() = delete;
 
-      friend Tile& ISerialize<Tile>::LoadFromFile(std::ifstream &file);
+      friend Tile ISerialize<Tile>::LoadFromFile(std::ifstream &file, const Vec2 position);
       friend void ISerialize<Tile>::SaveToFile(Tile &object, std::ofstream &file);
    };
    
@@ -36,7 +39,7 @@ namespace Game
 
    public:
       // Constructors
-      Map(Vec2 _size, char *data);
+      Map(Vec2 _size, std::string _name);
       Map(Vec2 _size);
       ~Map();
       Map() = delete;
@@ -46,7 +49,7 @@ namespace Game
       Tile &operator() (Vec2 position);
 
       // Static
-      friend Map& ISerialize<Map>::LoadFromFile(std::ifstream &file);
+      friend Map ISerialize<Map>::LoadFromFile(std::ifstream &file);
       friend void ISerialize<Map>::SaveToFile(Map &object, std::ofstream &file);
    };
 

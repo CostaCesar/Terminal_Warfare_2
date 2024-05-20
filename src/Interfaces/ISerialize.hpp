@@ -13,6 +13,8 @@ namespace Game
 
    public:
       static void SaveToFile(T &object, std::ofstream &file);
-      static T& LoadFromFile(std::ifstream &file);
+      
+      static T LoadFromFile(std::ifstream &file);
+      static T LoadFromFile(std::ifstream &file, const Vec2 info_vec2);
    };
 }
