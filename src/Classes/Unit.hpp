@@ -1,14 +1,16 @@
 #pragma once
 
 #include "Commons.hpp"
+#include "Entity.hpp"
+
 #include "ISerialize.hpp"
 
 namespace Game
 {
-   class Unit : ISerialize<Unit>
+   class Unit : Entity, ISerialize<Unit>
    {
    private:
-      const uint32_t unit_ID;
+      const uint8_t side_ID;
    public:
       Unit();
       ~Unit();

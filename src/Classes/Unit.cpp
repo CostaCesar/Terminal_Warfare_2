@@ -2,7 +2,9 @@
 
 namespace Game
 {
-   Unit::Unit() : unit_ID(0)
+   Unit::Unit() :
+   side_ID(0),
+   Entity()
    {
       
    }

@@ -7,6 +7,11 @@ namespace Game
       this->X = _X;
       this->Y = _Y;
    }
+   Vec2::Vec2()
+   {
+      this->X = 0;
+      this->Y = 0;
+   }
    
    uint32_t GetPosition(Vec2 position, Vec2 size)
    {

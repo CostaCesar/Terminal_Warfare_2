@@ -2,10 +2,10 @@
 
 #include "ISerialize.hpp"
 #include "Commons.hpp"
-#include "Unit.hpp"
+#include "Entity.hpp"
 
-#include <vector>
 #include <array>
+#include <vector>
 #include <fstream>
 
 namespace Game
@@ -14,6 +14,7 @@ namespace Game
    {
    private:
       const Vec2 position;
+      std::array<Entity *, MAX_UNITS_IN_TILE> units;
 
       // Serialized (Go to file) vars
       // TODO: Tile propreties (vegetation, terrain, etc)
