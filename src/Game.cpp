@@ -1,5 +1,6 @@
 #include "Classes/Map.hpp"
 #include "Classes/Unit.hpp"
+#include "Classes/Display.hpp"
 
 using namespace Game;
 
@@ -22,6 +23,10 @@ int main(int argc, char const *argv[])
    
    Map carregado = ISerialize<Map>::LoadFromFile(file_in);
    file_in.close();
+
+   Display tela;
+
+   tela.Update();
 
    return 0;
 }

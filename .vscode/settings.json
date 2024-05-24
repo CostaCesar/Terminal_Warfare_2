@@ -1,4 +1,8 @@
 {
+   "C_Cpp.default.includePath": ["src/Classes", "src/Interfaces"],
+   "cmake.debugConfig": {
+      "externalConsole": true
+   },
    "files.associations": {
       "array": "cpp",
       "atomic": "cpp",
