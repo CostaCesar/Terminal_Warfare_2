@@ -26,12 +26,12 @@ namespace Game
       handle = GetStdHandle(STD_OUTPUT_HANDLE);
       GetConsoleScreenBufferInfo(handle, &csbi);
 
+      ShowScrollBar(GetConsoleWindow(), SB_VERT, false);
+      this->ToggleCursor(false);
+      
       this->GetWindowSize();
-      uint32_t maxWindowSize = GetSize(Vec2(
-         csbi.dwMaximumWindowSize.X + 1 - 1,
-         csbi.dwMaximumWindowSize.Y));
-
-      this->buffer = std::string(maxWindowSize, 'x');
+      this->CreateBuffer();
+   
       this->Update();
    }
    void Display::Update()
@@ -41,13 +41,32 @@ namespace Game
       this->GetWindowSize();
       this->GetCursorPosition();
 
-      this->ClearScreen();
-      std::cout << buffer << std::endl;
+      if(this->HasChangedSize())
+      {
+         this->ClearScreen();
+         this->CreateBuffer();
+      }
+
+      this->ToggleCursor(false);
+      std::cout << buffer;
+      
+      this->SetCursorPosition((Vec2) {0, 0});
    }
 
+   void Display::CreateBuffer()
+   {
+      uint32_t buffer_size = GetSize(window_size) - 1;
+      this->buffer = std::string(buffer_size, 'x');
+      
+      for(int i = 1; i < window_size.Y; i++)
+         buffer[(i * window_size.X) - 1] = '\n';
+
+      return;
+   }
    void Display::ClearScreen()
    {
       system("cls");
+      this->SetCursorPosition((Vec2) {0, 0});
    }
    void Display::GetWindowSize()
    {
@@ -63,7 +82,7 @@ namespace Game
          static_cast<uint32_t>(csbi.dwCursorPosition.Y)
          };
    }
-   void SetCursorPosition(Vec2 position)
+   void Display::SetCursorPosition(Vec2 position)
    {
       SetConsoleCursorPosition(
          handle,
@@ -72,8 +91,18 @@ namespace Game
          static_cast<short>(position.Y)
          });
    }
+   void Display::ToggleCursor(bool show)
+   {
+      CONSOLE_CURSOR_INFO info;
+      info.dwSize = 100;
+      info.bVisible = show;
+      SetConsoleCursorInfo(handle, &info);
+   }
 
-   void DrawBox();
+   void Display::DrawBox(Vec2 position, Vec2 size)
+   {
+   }
+
    void DrawMap(Map &map);
    void DrawStatus();
    void DrawMenu();

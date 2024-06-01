@@ -17,10 +17,14 @@ namespace Game
       void SetCursorPosition(Vec2 position);
       void GetCursorPosition();
       
-      void DrawBox();
       void DrawMap(Map& map);
       void DrawStatus();
       void DrawMenu();
+
+      bool HasChangedSize()
+      { return false; }
+      void CreateBuffer();
+      void ToggleCursor(bool show);
 
    public:
       Display();
@@ -28,6 +32,7 @@ namespace Game
 
       void Initialise();
       void Update();
+      void DrawBox(Vec2 position, Vec2 size);
 
    private:
       enum class Symbol : uint8_t

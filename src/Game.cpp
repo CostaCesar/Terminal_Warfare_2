@@ -1,6 +1,7 @@
 #include "Classes/Map.hpp"
 #include "Classes/Unit.hpp"
 #include "Classes/Display.hpp"
+#include "Windows.h"
 
 using namespace Game;
 
@@ -26,7 +27,12 @@ int main(int argc, char const *argv[])
 
    Display tela;
 
-   tela.Update();
+   for(int i = 0; i < 20; i++)
+   {
+      tela.DrawBox(Vec2(i, i), Vec2(5, 5));
+      tela.Update();
+      Sleep(1000);
+   }
 
    return 0;
 }

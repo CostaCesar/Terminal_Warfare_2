@@ -9,11 +9,11 @@ namespace Game
 {
 Tile::Tile(Vec2 _position, char* data) : position(_position)
 {
-   
+   fortification = 0;
 }
 Tile::Tile(Vec2 _position) : position(_position)
 {
-
+   fortification = 0;
 }
 Tile::~Tile()
 {
@@ -22,8 +22,6 @@ Tile::~Tile()
 template<>
 void ISerialize<Tile>::SaveToFile(Tile &object, std::ofstream &file)
 {
-   // file.write((char*) &object.position.X, sizeof(object.position.X));
-   // file.write((char*) &object.position.Y, sizeof(object.position.Y));
    file.write((char*) &object.fortification, sizeof(object.fortification));
    return;
 }
