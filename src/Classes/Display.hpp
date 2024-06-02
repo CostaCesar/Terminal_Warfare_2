@@ -32,7 +32,7 @@ namespace Game
 
       void Initialise();
       void Update();
-      void DrawBox(Vec2 position, Vec2 size);
+      void DrawBox(Vec2 position, Vec2 size, bool hollow = false);
 
    private:
       enum class Symbol : uint8_t
@@ -42,7 +42,7 @@ namespace Game
          Corner_NW   = 201,// '╔',
          Corner_SW   = 200,// '╚',
          Corner_SE   = 188,// '╝',
-         Corner_WE   = 187,// '╗',
+         Corner_NE   = 187,// '╗',
          Cross       = 206 // '╬'
       };
    };

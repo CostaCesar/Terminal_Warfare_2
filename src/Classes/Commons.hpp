@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <string>
+#include <exception>
 
 #define MAX_UNITS_IN_TILE 1
 
@@ -14,6 +15,12 @@ namespace Game
 
       Vec2(uint32_t _X, uint32_t _Y);
       Vec2();
+
+      uint32_t operator()(Vec2 position);
+      uint32_t operator()(uint32_t X, uint32_t Y);
+      Vec2 operator+(Vec2 other);
+     
+      bool IsInside(Vec2 end, Vec2 start = Vec2(0, 0));
    };
    typedef uint16_t ExitCode;
    
