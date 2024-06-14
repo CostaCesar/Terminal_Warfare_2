@@ -28,10 +28,13 @@ int main(int argc, char const *argv[])
    file_in.close();
 
    Display tela;
+   UI_Box box1 = UI_Box(Vec2(0, 0), Vec2(10, 10));
+   UI_Box box2 = UI_Box(Vec2(5, 5), Vec2(15, 10), true);
+   tela.AddElement(&box1);
+   tela.AddElement(&box2);
 
    for(int i = 0; i < 200; i++)
    {
-      tela.DrawBox(Vec2(i, i), Vec2(i+2, i+2), true);
       tela.Update();
       Sleep(100);
    }

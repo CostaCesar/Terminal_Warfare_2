@@ -48,6 +48,12 @@ namespace Game
       }
 
       this->ToggleCursor(false);
+      for (auto &&ui_element : elements)
+      {
+         ui_element->Draw(buffer, window_size);
+      }
+      
+
       std::cout << buffer;
       
       this->SetCursorPosition((Vec2) {0, 0});
@@ -99,39 +105,10 @@ namespace Game
       SetConsoleCursorInfo(handle, &info);
    }
 
-   void Display::DrawBox(Vec2 position, Vec2 size, bool hollow)
+   void Display::AddElement(IElement *element)
    {
-      size.X--, size.Y--;
-      if(!position.IsInside(window_size))
-         throw std::out_of_range("Box's start position out of screen!");
-      Vec2 end = Vec2(position + size);
-      if(!end.IsInside(window_size))
-         throw std::out_of_range("Box's start position out of screen!");
-      
-      buffer[window_size(position)] = (char) Symbol::Corner_NW;
-      for(int i = window_size(position) + 1; i < window_size(end.X, position.Y); i++)  
-         buffer[i] = (char) Symbol::Line_EW;
-      buffer[window_size(end.X, position.Y)] = (char) Symbol::Corner_NE;
-
-      for(int col = 1; col < size.Y; col++)
-      {
-         buffer[window_size(position.X, position.Y + col)] = (char) Symbol::Line_NS;
-         if(!hollow)
-         {
-            for(int i = window_size(position.X, position.Y + col) + 1; i < window_size(end.X, position.Y + col) - 1; i++)
-               buffer[i] = ' ';
-         }
-         buffer[window_size(end.X, position.Y + col)] = (char) Symbol::Line_NS;
-      }
-
-      buffer[window_size(position.X, end.Y)] = (char) Symbol::Corner_SW;
-      for(int i = window_size(position.X, end.Y) + 1; i < window_size(end); i++)  
-         buffer[i] = (char) Symbol::Line_EW;
-      buffer[window_size(end)] = (char) Symbol::Corner_SE;
-
-      return;
+      elements.push_back(element);
    }
-
    void DrawMap(Map &map);
    void DrawStatus();
    void DrawMenu();

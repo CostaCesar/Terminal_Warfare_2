@@ -1,7 +1,11 @@
 #pragma once
 
 #include "Map.hpp"
+#include "UI_Elements.hpp"
+#include <unordered_map>
+#include <vector>
 
+template<typename K, typename T> using uMap = std::unordered_map<K, T>;
 namespace Game
 {
    class Display
@@ -9,6 +13,8 @@ namespace Game
    private:
       Vec2 window_size;
       Vec2 cursor_pos;
+
+      std::vector<IElement*> elements;
 
       std::string buffer;
 
@@ -32,18 +38,7 @@ namespace Game
 
       void Initialise();
       void Update();
-      void DrawBox(Vec2 position, Vec2 size, bool hollow = false);
 
-   private:
-      enum class Symbol : uint8_t
-      {
-         Line_EW     = 205,// '═',
-         Line_NS     = 186,// '║',
-         Corner_NW   = 201,// '╔',
-         Corner_SW   = 200,// '╚',
-         Corner_SE   = 188,// '╝',
-         Corner_NE   = 187,// '╗',
-         Cross       = 206 // '╬'
-      };
+      void AddElement(IElement *element);
    };
 }
