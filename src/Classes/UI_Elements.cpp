@@ -11,6 +11,9 @@ namespace Game
 
    UI_Box::UI_Box(Vec2 _screen_pos, Vec2 _screen_size, bool _is_holow) : IElement( _screen_pos, _screen_size)
    {
+      if(_screen_size.X < 2 || _screen_size.Y < 2)
+         throw std::invalid_argument("Box container has insuficient size!");
+      
       this->is_hollow = _is_holow;
    }
    void UI_Box::Draw(std::string& buffer, Vec2 screen_limit)
@@ -49,15 +52,15 @@ namespace Game
 
    UI_Text::UI_Text(Vec2 _screen_pos, Vec2 _screen_size, Alignment _align) : UI_Box(_screen_pos, _screen_size, false)
    {
-      if(screen_size.Y < 3)
+      if(_screen_size.Y < 3)
          throw std::invalid_argument("Text container has insuficient lines inside it!");
 
-      this->lines.reserve(screen_size.Y-2);
+      this->lines.reserve(_screen_size.Y-2);
       this->align = _align;
    }
    UI_Text::UI_Text(Vec2 _screen_pos, Vec2 _screen_size, const std::vector<std::string> text, Alignment _align) : UI_Box(_screen_pos, _screen_size, false)
    {
-      if(screen_size.Y < 3)
+      if(_screen_size.Y < 3)
          throw std::invalid_argument("Text container has insuficient lines inside it!");
       
       this->align = _align;
