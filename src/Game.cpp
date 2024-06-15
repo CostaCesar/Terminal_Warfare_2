@@ -9,25 +9,25 @@ using namespace Game;
 
 int main(int argc, char const *argv[])
 {
-   Map mapa = Map(Vec2(512, 512));
+   Map test_map = Map(Vec2(512, 512));
 
-   std::string inp = "assets/mapa.bin", oup = "assets/mapa.bin";
+   std::string input_map = "assets/test_map.bin", output_map = "assets/test_map.bin";
 
-   std::ofstream file_out(inp, std::ios::binary);
+   std::ofstream file_out(input_map, std::ios::binary);
    if(!file_out.is_open())
-      throw std::invalid_argument("The filepath \"" + inp + "\" does not exists! ");
+      throw std::invalid_argument("The filepath \"" + input_map + "\" does not exists! ");
    
-   ISerialize<Map>::SaveToFile(mapa, file_out);
+   ISerialize<Map>::SaveToFile(test_map, file_out);
    file_out.close();
 
-   std::ifstream file_in("assets/mapa.bin", std::ios::binary);
+   std::ifstream file_in("assets/test_map.bin", std::ios::binary);
    if(!file_in.is_open())
-      throw std::invalid_argument("The filepath \"" + oup + "\" does not exists! ");
+      throw std::invalid_argument("The filepath \"" + output_map + "\" does not exists! ");
    
-   Map carregado = ISerialize<Map>::LoadFromFile(file_in);
+   Map loaded_map = ISerialize<Map>::LoadFromFile(file_in);
    file_in.close();
 
-   Display tela;
+   Display window;
    
    UI_Box box1 = UI_Box(Vec2(0, 0), Vec2(10, 10));
    UI_Box box2 = UI_Box(Vec2(5, 5), Vec2(15, 10), true);
@@ -39,15 +39,15 @@ int main(int argc, char const *argv[])
    UI_Text text3 = UI_Text(Vec2(20, 15), Vec2(24, 10),
       {"Example", "Test", ".123com"}, UI_Text::Alignment::Center);
    
-   tela.AddElement(&box1);
-   tela.AddElement(&box2);
-   tela.AddElement(&text1);
-   tela.AddElement(&text2);
-   tela.AddElement(&text3);
+   window.AddElement(&box1);
+   window.AddElement(&box2);
+   window.AddElement(&text1);
+   window.AddElement(&text2);
+   window.AddElement(&text3);
 
    for(int i = 0; i < 200; i++)
    {
-      tela.Update();
+      window.Update();
       Sleep(100);
    }
 
