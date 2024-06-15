@@ -1,6 +1,6 @@
 #include "UI_Elements.hpp"
 #include <stdexcept>
-
+#
 namespace Game
 {
    IElement::IElement(Vec2 _screen_pos, Vec2 _screen_size)
@@ -47,12 +47,48 @@ namespace Game
       return;
    }
 
-   UI_Text::UI_Text(Vec2 _screen_pos, Vec2 _screen_size) : UI_Box(_screen_pos, _screen_size, false)
+   UI_Text::UI_Text(Vec2 _screen_pos, Vec2 _screen_size, Alignment _align) : UI_Box(_screen_pos, _screen_size, false)
    {
-      this->lines.reserve(std::max<uint32_t>(_screen_size.Y - 2, 2));
+      if(screen_size.Y < 3)
+         throw std::invalid_argument("Text container has insuficient lines inside it!");
+
+      this->lines.reserve(screen_size.Y-2);
+      this->align = _align;
+   }
+   UI_Text::UI_Text(Vec2 _screen_pos, Vec2 _screen_size, const std::vector<std::string> text, Alignment _align) : UI_Box(_screen_pos, _screen_size, false)
+   {
+      if(screen_size.Y < 3)
+         throw std::invalid_argument("Text container has insuficient lines inside it!");
+      
+      this->align = _align;
+      this->lines = text;
    }
    void UI_Text::Draw(std::string& buffer, Vec2 screen_limit)
    {
+      UI_Box::Draw(buffer, screen_limit);
 
+      Vec2 textPos = {screen_pos.X, screen_pos.Y + 1};
+      
+      for (auto const &line : lines)
+      {
+         uint32_t linePos = 0;
+         switch (align)
+         {
+         case Alignment::Left:
+            linePos = screen_limit(textPos) +2;
+            break;
+         case Alignment::Center:
+            linePos = (screen_limit((textPos.X + (screen_size.X / 2)), textPos.Y))
+               - (line.length() / 2);
+            break;
+         case Alignment::Right:
+            linePos = screen_limit(textPos.X + screen_size.X, textPos.Y)
+               - line.length() -2;
+            break;
+         }
+         buffer.replace(linePos, line.length(), line);
+         textPos.Y++;
+      }
+      
    }
 }

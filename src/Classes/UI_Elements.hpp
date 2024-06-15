@@ -32,14 +32,25 @@ namespace Game
 
    class UI_Text : public UI_Box
    {
+   public:
+      enum class Alignment
+      {
+         Right = 0,
+         Center = 1,
+         Left = 2
+      };
+
    private:
       std::vector<std::string> lines;
+      Alignment align;
 
    public:
       void Draw(std::string& buffer, Vec2 screen_limit) override;
 
-      UI_Text(Vec2 _screen_pos, Vec2 _screen_size);
+      UI_Text(Vec2 _screen_pos, Vec2 _screen_size, Alignment _align = Alignment::Left);
+      UI_Text(Vec2 _screen_pos, Vec2 _screen_size, const std::vector<std::string>, Alignment _align = Alignment::Left);
       UI_Text() = delete;
+
    };
 
    enum class Symbol : uint8_t
