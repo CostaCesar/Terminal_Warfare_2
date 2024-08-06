@@ -30,7 +30,7 @@ namespace Game
       UI_Box() = delete;
    };
 
-   class UI_Text : public UI_Box
+   class UI_Text : public IElement
    {
    public:
       enum class Alignment
@@ -47,12 +47,27 @@ namespace Game
    public:
       void Draw(std::string& buffer, Vec2 screen_limit) override;
 
-      UI_Text(Vec2 _screen_pos, Vec2 _screen_size, Alignment _align = Alignment::Left);
-      UI_Text(Vec2 _screen_pos, Vec2 _screen_size, const std::vector<std::string>, Alignment _align = Alignment::Left);
+      UI_Text(Vec2 _screen_pos, Vec2 _screen_size, Alignment _align);
+      UI_Text(Vec2 _screen_pos, Vec2 _screen_size, const std::vector<std::string> _text, Alignment _align = Alignment::Left);
       UI_Text() = delete;
 
    };
 
+   class UI_BoxText : public IElement
+   {
+   private:
+      UI_Box box;
+      UI_Text text;
+
+   public:
+      void Draw(std::string& buffer, Vec2 screen_limit) override;
+
+      UI_BoxText(Vec2 _screen_pos, Vec2 _screen_size,
+         const std::vector<std::string> _text,
+          Vec2 _screen_padding = Vec2{0,0},
+         UI_Text::Alignment _align = UI_Text::Alignment::Left);
+      UI_BoxText() = delete;
+   };
    enum class Symbol : uint8_t
    {
       Line_EW     = 205,// '═',

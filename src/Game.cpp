@@ -36,14 +36,14 @@ int main(int argc, char const *argv[])
       {"Example", "Test", ".123com"}, UI_Text::Alignment::Right);
    UI_Text text2 = UI_Text(Vec2(60, 10), Vec2(16, 5),
       {"Example", "Test", ".123com"}, UI_Text::Alignment::Left);
-   UI_Text text3 = UI_Text(Vec2(20, 15), Vec2(24, 10),
-      {"Example", "Test", ".123com"}, UI_Text::Alignment::Center);
+   UI_BoxText box_text1 = UI_BoxText(Vec2(24,10), Vec2(24,10),
+      {"Example", "Test", ".123com"}, Vec2(0,0), UI_Text::Alignment::Left);
    
    window.AddElement(&box1);
    window.AddElement(&box2);
    window.AddElement(&text1);
    window.AddElement(&text2);
-   window.AddElement(&text3);
+   window.AddElement(&box_text1);
 
    for(int i = 0; i < 200; i++)
    {
