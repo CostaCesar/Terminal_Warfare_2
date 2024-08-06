@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#define BLANK_CHAR '-'
+
 #ifdef _WIN32
 // Windows
 #include "Windows.h"
@@ -62,7 +64,7 @@ namespace Game
    void Display::CreateBuffer()
    {
       uint32_t buffer_size = GetSize(window_size) - 1;
-      this->buffer = std::string(buffer_size, 'x');
+      this->buffer = std::string(buffer_size, BLANK_CHAR);
       
       for(int i = 1; i < window_size.Y; i++)
          buffer[(i * window_size.X) - 1] = '\n';
