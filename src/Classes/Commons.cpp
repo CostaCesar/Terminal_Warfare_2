@@ -21,6 +21,12 @@ namespace Game
    { return Vec2(this->X + other.X, this->Y + other.Y); }
    Vec2 Vec2::operator-(Vec2 other)
    { return Vec2(this->X - other.X, this->Y - other.Y); }
+   Vec2& Vec2::operator+=(const Vec2 other)
+   { 
+      this->X += other.X;
+      this->Y += other.Y;
+      return *this;
+   }
    bool Vec2::IsInside(Vec2 end, Vec2 start)
    {
       if(this->X < start.X || this->X >= end.X)
