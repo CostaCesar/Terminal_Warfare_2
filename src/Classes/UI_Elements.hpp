@@ -27,7 +27,7 @@ namespace Game
       void Draw(std::string& buffer, Vec2 screen_limit) override;
 
       UI_Box(Vec2 _screen_pos, Vec2 _screen_size, bool _is_holow = false);
-      UI_Box() = delete;
+      UI_Box();
    };
 
    class UI_Text : public IElement
@@ -41,15 +41,16 @@ namespace Game
       };
 
    private:
-      std::vector<std::string> lines;
       Alignment align;
+      std::vector<std::string> lines;
+
 
    public:
       void Draw(std::string& buffer, Vec2 screen_limit) override;
 
       UI_Text(Vec2 _screen_pos, Vec2 _screen_size, Alignment _align);
       UI_Text(Vec2 _screen_pos, Vec2 _screen_size, const std::vector<std::string> _text, Alignment _align = Alignment::Left);
-      UI_Text() = delete;
+      UI_Text();
 
    };
 
@@ -76,6 +77,7 @@ namespace Game
       Corner_SW   = 200,// '╚',
       Corner_SE   = 188,// '╝',
       Corner_NE   = 187,// '╗',
-      Cross       = 206 // '╬'
+      Cross       = 206,// '╬',
+      Selected    = '>'
    };
 }

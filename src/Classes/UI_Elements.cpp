@@ -9,6 +9,10 @@ namespace Game
       this->screen_size = _screen_size;
    }
 
+   UI_Box::UI_Box() : IElement({0, 0}, {0 , 0})
+   {
+     this->is_hollow = false;
+   }
    UI_Box::UI_Box(Vec2 _screen_pos, Vec2 _screen_size,bool _is_holow)
    : IElement( _screen_pos, _screen_size)
    {
@@ -51,6 +55,11 @@ namespace Game
       return;
    }
 
+   UI_Text::UI_Text() : IElement({0, 0}, {0 , 0})
+   {
+      this->align = Alignment::Center;
+      this->lines = std::vector<std::string>(0);
+   }
    UI_Text::UI_Text(Vec2 _screen_pos, Vec2 _screen_size, Alignment _align)
    : IElement(_screen_pos, _screen_size)
    {
