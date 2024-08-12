@@ -52,6 +52,8 @@ namespace Game
       UI_Text(Vec2 _screen_pos, Vec2 _screen_size, const std::vector<std::string> _text, Alignment _align = Alignment::Left);
       UI_Text();
 
+      void UpdateLine(uint16_t line_number, const std::string new_string);
+      const std::string& GetLine(uint16_t line_number);
    };
 
    class UI_BoxText : public IElement

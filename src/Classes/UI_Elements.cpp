@@ -103,16 +103,30 @@ namespace Game
          buffer.replace(linePos, line.length(), line);
          textPos.Y++;
       }
+   }
+   void UI_Text::UpdateLine(uint16_t line_number, const std::string new_string)
+   {
+      if(line_number < 0 || line_number > this->lines.size())
+         throw std::invalid_argument("Line index outside of bounds!");
 
+      this->lines[line_number] = new_string;
+   }
+   const std::string& UI_Text::GetLine(uint16_t line_number)
+   {
+      if(line_number < 0 || line_number > this->lines.size())
+         throw std::invalid_argument("Line index outside of bounds!");
+
+      return this->lines[line_number];
    }
 
    UI_BoxText::UI_BoxText(Vec2 _screen_pos, Vec2 _screen_size,
       const std::vector<std::string> _text,
       Vec2 _screen_padding, UI_Text::Alignment _align)
-   : IElement(_screen_pos, _screen_size),
-      box(_screen_pos, _screen_size),
-      text(_screen_pos + (Vec2) {1,1} + _screen_padding, _screen_size - _screen_padding,_text, _align)
-   { }
+   : IElement(_screen_pos, _screen_size)
+   {
+      this->box = UI_Box(_screen_pos, _screen_size);
+      this->text = UI_Text(_screen_pos + (Vec2) {1,1} + _screen_padding, _screen_size - _screen_padding,_text, _align);
+   }
    void UI_BoxText::Draw(std::string& buffer, Vec2 screen_limit)
    {
       this->box.Draw(buffer, screen_limit);
