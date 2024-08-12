@@ -133,4 +133,34 @@ namespace Game
       this->text.Draw(buffer, screen_limit);
    }
 
+   UI_Menu::UI_Menu(Vec2 _screen_pos, Vec2 _screen_size,
+      const std::vector<std::string> _options,
+      const std::vector<std::string> _text,
+      bool _textFirst, Vec2 _padding , UI_Text::Alignment _align)
+   : IElement(_screen_pos, _screen_size)
+   {
+      this->box = UI_Box(_screen_pos, _screen_size, false);
+      
+      Vec2 promp_pos = _screen_pos + Vec2{1, 1};
+      Vec2 options_pos = _screen_pos + Vec2{1, 1};
+      if(_textFirst)
+         options_pos += Vec2{0, static_cast<uint32_t>(_options.size()) + 1};
+      else promp_pos += Vec2{0, static_cast<uint32_t>(_options.size()) + 1};
+
+
+      this->options = UI_Text(options_pos, _screen_size, _options, _align);
+      this->prompt = UI_Text(promp_pos, _screen_size, _text, _align);
+      this->selected_option = 0;
+   }
+   void UI_Menu::Draw(std::string& buffer, Vec2 screen_limit)
+   {
+      this->box.Draw(buffer, screen_limit);
+      this->prompt.Draw(buffer, screen_limit);
+
+      std::string select_part = std::string(1, (char)Symbol::Selected);
+      this->options.UpdateLine(this->selected_option,
+         select_part + " " + this->options.GetLine(this->selected_option));
+
+      this->options.Draw(buffer, screen_limit);
+   };
 }

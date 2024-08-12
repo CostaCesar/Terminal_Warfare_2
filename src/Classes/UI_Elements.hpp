@@ -71,6 +71,29 @@ namespace Game
          UI_Text::Alignment _align = UI_Text::Alignment::Left);
       UI_BoxText() = delete;
    };
+
+   class UI_Menu : public IElement
+   {
+   public:
+
+   private:
+      UI_Box box;
+      UI_Text prompt;
+      UI_Text options;
+
+   public:
+      uint16_t selected_option;
+
+      void Draw(std::string& buffer, Vec2 screen_limit) override;
+
+      UI_Menu(Vec2 _screen_pos, Vec2 _screen_size,
+         const std::vector<std::string> _options,
+         const std::vector<std::string> _text = {""},
+         bool _textFirst = true, Vec2 _padding = {1, 1},
+         UI_Text::Alignment align = UI_Text::Alignment::Left);
+      UI_Menu() = delete;
+   };
+
    enum class Symbol : uint8_t
    {
       Line_EW     = 205,// '═',

@@ -32,18 +32,19 @@ int main(int argc, char const *argv[])
    UI_Box box1 = UI_Box(Vec2(0, 0), Vec2(10, 10));
    UI_Box box2 = UI_Box(Vec2(5, 5), Vec2(15, 10), true);
    
-   UI_Text text1 = UI_Text(Vec2(10, 10), Vec2(32, 5),
-      {"Example", "Test", ".123com"}, UI_Text::Alignment::Right);
-   UI_Text text2 = UI_Text(Vec2(60, 10), Vec2(16, 5),
-      {"Example", "Test", ".123com"}, UI_Text::Alignment::Left);
+   UI_Text text1 = UI_Text(Vec2(40, 10), Vec2(32, 5),
+      {"Text", "Test", ".123com"}, UI_Text::Alignment::Right);
    UI_BoxText box_text1 = UI_BoxText(Vec2(24,10), Vec2(24,10),
-      {"Example", "Test", ".123com"}, Vec2(0,0), UI_Text::Alignment::Left);
+      {"BoxTest", "Test", ".123com"}, Vec2(1,1), UI_Text::Alignment::Left);
+   UI_Menu menu1 = UI_Menu(Vec2(54,10), Vec2(24,10),
+      {"A", "B", "C"}, {"Menu", "Test", ".123com"},
+      false, Vec2(1,1), UI_Text::Alignment::Left);
    
    window.AddElement(&box1);
    window.AddElement(&box2);
    window.AddElement(&text1);
-   window.AddElement(&text2);
    window.AddElement(&box_text1);
+   window.AddElement(&menu1);
 
    for(int i = 0; i < 200; i++)
    {
