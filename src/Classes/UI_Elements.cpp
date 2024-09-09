@@ -190,4 +190,32 @@ namespace Game
       this->options.Draw(buffer, screen_limit);
       this->selector.Draw(buffer, screen_limit);
    };
+
+   UI_LoadBar::UI_LoadBar(Vec2 _screen_pos, Vec2 _screen_size, uint16_t _goal, uint16_t _rate)
+   : UI_BoxText(_screen_pos, _screen_size, {""})
+   {
+      this->progress_rate = _rate;
+      this->progress_goal = _goal;
+      this->progress = 0;
+   }
+   void UI_LoadBar::Draw(std::string& buffer, Vec2 screen_limit)
+   {
+      if(!this->IsCompleted())
+      {
+         this->progress += this->progress_rate;
+         uint16_t bar_progress = ((static_cast<float>(GetProgress()) / 100) * (this->screen_size.X - 2));
+
+         this->text.UpdateLine(0, std::string(bar_progress, (char) Symbol::BarFill));
+      }
+
+      UI_BoxText::Draw(buffer, screen_limit);
+   }
+   bool UI_LoadBar::IsCompleted()
+   { return (this->progress >= this->progress_goal); }
+   void UI_LoadBar::ResetBar()
+   { this->progress = 0; }
+   void UI_LoadBar::ChangeRate(uint16_t new_rate)
+   { this->progress_rate = new_rate; }
+   uint8_t UI_LoadBar::GetProgress()
+   { return static_cast<uint8_t>((static_cast<float>(this->progress) / this->progress_goal) * 100); }
 }

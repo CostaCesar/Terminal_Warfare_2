@@ -60,6 +60,8 @@ namespace Game
    {
    private:
       UI_Box box;
+      
+   protected:
       UI_Text text;
 
    public:
@@ -95,6 +97,24 @@ namespace Game
       UI_Menu() = delete;
    };
 
+   class UI_LoadBar : public UI_BoxText
+   {
+   private:
+      uint16_t progress;
+      uint16_t progress_goal;
+      uint16_t progress_rate;
+   public:
+      void Draw(std::string& buffer, Vec2 screen_limit) override;
+
+      UI_LoadBar(Vec2 _screen_pos, Vec2 _screen_size, uint16_t _goal, uint16_t _rate = 0);
+      UI_LoadBar() = delete;
+
+      bool IsCompleted();
+      void ResetBar();
+      void ChangeRate(uint16_t new_rate);
+      uint8_t GetProgress();
+   };
+
    enum class Symbol : uint8_t
    {
       Line_EW     = 205,// '═',
@@ -104,6 +124,7 @@ namespace Game
       Corner_SE   = 188,// '╝',
       Corner_NE   = 187,// '╗',
       Cross       = 206,// '╬',
-      Selected    = '>'
+      Selected    = '>',
+      BarFill     = '#'
    };
 }

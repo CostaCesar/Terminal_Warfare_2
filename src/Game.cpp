@@ -39,12 +39,14 @@ int main(int argc, char const *argv[])
    UI_Menu menu1 = UI_Menu(Vec2(54,10), Vec2(24,10),
       {"A", "B", "C"}, {"Menu", "Test", ".123com"},
       false, Vec2(1,1), UI_Text::Alignment::Left);
+   UI_LoadBar bar1 = UI_LoadBar(Vec2(24,20), Vec2(24,3), 100, 1);
    
    window.AddElement(&box1);
    window.AddElement(&box2);
    window.AddElement(&text1);
    window.AddElement(&box_text1);
    window.AddElement(&menu1);
+   window.AddElement(&bar1);
 
    for(int i = 0; i < 200; i++)
    {
