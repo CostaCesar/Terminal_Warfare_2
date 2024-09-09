@@ -141,6 +141,9 @@ namespace Game
       bool _textFirst, Vec2 _padding , UI_Text::Alignment _align)
    : IElement(_screen_pos, _screen_size)
    {
+      if(_options.size() < 1)
+         throw std::invalid_argument("No options given to menu!");
+      
       this->box = UI_Box(_screen_pos, _screen_size, false);
       
       Vec2 promp_pos = _screen_pos + Vec2{1, 1};
@@ -148,21 +151,43 @@ namespace Game
       if(_textFirst)
          options_pos += Vec2{0, static_cast<uint32_t>(_options.size()) + 1};
       else promp_pos += Vec2{0, static_cast<uint32_t>(_options.size()) + 1};
-
+      
+      // To open space for the selector
+      options_pos.X += 2;
 
       this->options = UI_Text(options_pos, _screen_size, _options, _align);
       this->prompt = UI_Text(promp_pos, _screen_size, _text, _align);
+
+      this->selector = UI_Text(options_pos - Vec2{2, 0}, Vec2(2, _options.size()), std::vector<std::string>(_options.size(), "  "));
       this->selected_option = 0;
+      this->ChangeSelection(this->selected_option);
+   }
+   void UI_Menu::ChangeSelection(uint16_t new_selection)
+   {
+      if(new_selection >= this->options.GetLineCount())
+         throw std::invalid_argument("Selection outside bounds!");
+
+      this->selector.UpdateLine(this->selected_option, "  ");
+      this->selected_option = new_selection;
+      this->selector.UpdateLine(this->selected_option, std::string(1, (char)Symbol::Selected) + " ");
+   }
+   void UI_Menu::ChangeSelection(bool goUp)
+   {
+      this->selector.UpdateLine(this->selected_option, "  ");
+      
+      if(goUp && this->selected_option == this->options.GetLineCount() - 1)
+         this->selected_option = 0;
+      else if (!goUp && this->selected_option == 0)
+         this->selected_option = this->options.GetLineCount() - 1;
+      else this->selected_option = (uint16_t) ((int) this->selected_option + (goUp ? 1 : -1));
+
+      this->selector.UpdateLine(this->selected_option, std::string(1, (char)Symbol::Selected) + " ");
    }
    void UI_Menu::Draw(std::string& buffer, Vec2 screen_limit)
    {
       this->box.Draw(buffer, screen_limit);
       this->prompt.Draw(buffer, screen_limit);
-
-      std::string select_part = std::string(1, (char)Symbol::Selected);
-      this->options.UpdateLine(this->selected_option,
-         select_part + " " + this->options.GetLine(this->selected_option));
-
       this->options.Draw(buffer, screen_limit);
+      this->selector.Draw(buffer, screen_limit);
    };
 }

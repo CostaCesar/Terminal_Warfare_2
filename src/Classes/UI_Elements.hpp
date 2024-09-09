@@ -74,16 +74,17 @@ namespace Game
 
    class UI_Menu : public IElement
    {
-   public:
-
    private:
       UI_Box box;
       UI_Text prompt;
       UI_Text options;
+      UI_Text selector;
 
-   public:
       uint16_t selected_option;
+   public:
 
+      void ChangeSelection(uint16_t new_value);
+      void ChangeSelection(bool goUp);
       void Draw(std::string& buffer, Vec2 screen_limit) override;
 
       UI_Menu(Vec2 _screen_pos, Vec2 _screen_size,
