@@ -118,6 +118,8 @@ namespace Game
 
       return this->lines[line_number];
    }
+   uint16_t UI_Text::GetLineCount()
+   { return this->lines.size(); }
 
    UI_BoxText::UI_BoxText(Vec2 _screen_pos, Vec2 _screen_size,
       const std::vector<std::string> _text,

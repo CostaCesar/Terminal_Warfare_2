@@ -44,7 +44,6 @@ namespace Game
       Alignment align;
       std::vector<std::string> lines;
 
-
    public:
       void Draw(std::string& buffer, Vec2 screen_limit) override;
 
@@ -54,6 +53,7 @@ namespace Game
 
       void UpdateLine(uint16_t line_number, const std::string new_string);
       const std::string& GetLine(uint16_t line_number);
+      uint16_t GetLineCount();
    };
 
    class UI_BoxText : public IElement
