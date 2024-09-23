@@ -52,6 +52,10 @@ int main(int argc, char const *argv[])
    {
       window.Update();
       Sleep(100);
+      if(i % 10 == 0)
+      {
+         menu1.ChangeSelection(false);
+      }
    }
 
    return 0;
