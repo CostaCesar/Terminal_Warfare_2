@@ -2,7 +2,11 @@
 #include <iostream>
 #include <cstring>
 
-#define __FILENAME__ (strrchr("\\" __FILE__, '\\') + 1)
+#ifdef _WIN32
+   #define __FILENAME__ (strrchr("\\" __FILE__, '\\') + 1)
+#else
+   #define __FILENAME__ (strrchr("/" __FILE__, '/') + 1)
+#endif
 
 static uint64_t test_count = 0;
 
@@ -52,7 +56,7 @@ int main(int argc, char const *argv[])
    {
       ASSERT(tags[x.second].GetValue() == (5 << x.first));
    }
-   
+
    Tag toAdd("Added tag", 2, 10101010);
    tags[toAdd] = toAdd;
    ASSERT(tags[toAdd].GetValue() == toAdd.GetValue());
